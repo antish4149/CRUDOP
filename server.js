@@ -19,6 +19,21 @@ app.get("/student",(req,res)=>{
 
 })
 
+app.get("/student/:id",(req,res)=>{
+    let id = req.params.id;
+
+    fs.readFile(filepath,'utf-8',(err,data)=>{
+        if(err){
+            console.log(err)
+        }
+
+        let students = data ? JSON.parse(data):[];
+        let studentData = students.find((student)=>student.id==id);
+        res.send(studentData);
+    })
+
+})
+
 app.post("/student",(req,res)=>{
     
     const newStudnet= req.body;// data in jsobject form collecting using express.json() middleware
